@@ -39,9 +39,12 @@ RUN chmod +x /usr/local/bin/rollout-complete \
 
 RUN apt-get clean
 
-COPY entrypoint.sh /sbin/entrypoint.sh
-RUN chmod 755 /sbin/entrypoint.sh
+COPY entrypoint.sh /usr/local/bin/entrypoint
+COPY override-entrypoint.sh /usr/local/bin/override-entrypoint
+
+RUN chmod +x /usr/local/bin/entrypoint
+RUN chmod +x /usr/local/bin/override-entrypoint
 
 VOLUME ["${GITLAB_CI_MULTI_RUNNER_DATA_DIR}"]
 WORKDIR "${GITLAB_CI_MULTI_RUNNER_HOME_DIR}"
-ENTRYPOINT ["/sbin/entrypoint.sh"]
+ENTRYPOINT ["entrypoint"]
