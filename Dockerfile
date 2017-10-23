@@ -10,7 +10,7 @@ ENV KUBECTL_VERSION=1.7.1
 
 RUN apt-get update \
  && apt-get upgrade -y \ 
- && apt-get install wget sudo -y 
+ && apt-get install wget sudo jq -y 
  
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv E1DD270288B4E6030699E45FA1715D88E1DF1F24 \
  && echo "deb http://ppa.launchpad.net/git-core/ppa/ubuntu trusty main" >> /etc/apt/sources.list \
@@ -44,8 +44,6 @@ COPY override-entrypoint.sh /usr/local/bin/override-entrypoint
 
 RUN chmod +x /usr/local/bin/entrypoint
 RUN chmod +x /usr/local/bin/override-entrypoint
-
-RUN export PATH=/usr/local/bin:$PATH
 
 VOLUME ["${GITLAB_CI_MULTI_RUNNER_DATA_DIR}"]
 WORKDIR "${GITLAB_CI_MULTI_RUNNER_HOME_DIR}"
