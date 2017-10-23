@@ -31,11 +31,11 @@ RUN chmod +x ./kubectl \
     && mv ./kubectl /usr/local/bin/kubectl
 RUN mkdir ${GITLAB_CI_MULTI_RUNNER_HOME_DIR}/.kube
 
-COPY rollout-complete.sh /usr/local/rollout-complete
-COPY pipeline-track.sh /usr/local/pipeline-track
+COPY rollout-complete.sh /usr/local/bin/rollout-complete
+COPY pipeline-track.sh /usr/local/bin/pipeline-track
 
-RUN chmod +x /usr/local/rollout-complete \
-    && chmod +x /usr/local/pipeline-track
+RUN chmod +x /usr/local/bin/rollout-complete \
+    && chmod +x /usr/local/bin/pipeline-track
 
 RUN apt-get clean
 

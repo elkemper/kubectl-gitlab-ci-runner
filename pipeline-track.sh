@@ -1,7 +1,8 @@
 #!/bin/bash
 
-PRIVATE_TOKEN='J8Jh5Rzz145D2PxpiKfa'
-ARG_COMMAND=$( echo $1 | grep -e "projects\/[0-9]*\/trig" )
+GITLAB_URL=$1
+PRIVATE_TOKEN=$2
+ARG_COMMAND=$( echo $3 | grep -e "projects\/[0-9]*\/trig" )
 
 if [ -z "$ARG_COMMAND" ];
 then
@@ -18,7 +19,7 @@ echo "PIPELINE_ID = $PIPELINE_ID"
 for I in {1..240} 
 do 
 	sleep 5	
-	PIPELINE_STATUS=$(curl -s --header "PRIVATE-TOKEN: $PRIVATE_TOKEN" "https://gitlab.akb-it.ru/api/v4/projects/$PROJECT_ID/pipelines/$PIPELINE_ID" | jq '.status')
+	PIPELINE_STATUS=$(curl -s --header "PRIVATE-TOKEN: $PRIVATE_TOKEN" "$GITLAB_URL/api/v4/projects/$PROJECT_ID/pipelines/$PIPELINE_ID" | jq '.status')
 	echo $PIPELINE_STATUS 
 	if [ $PIPELINE_STATUS = '"success"' ]; 
 	then
